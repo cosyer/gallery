@@ -1,0 +1,145 @@
+//引入箭头图标
+@font-face{
+  font-family : 'iconFont';
+  src : url('../fonts/icons/turn-arrow.eot') format('embedded-opentype'),/* IE9 */
+        url('../fonts/icons/turn-arrow.woff') format('woff'),/* chrome、firefox */
+        url('../fonts/icons/turn-arrow.ttf') format('truetype'),
+        /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+        url('../fonts/icons/turn-arrow.svg') format('svg');/* iOS 4.1- */
+}
+
+/* Base Application Styles */
+html,body{
+  padding : 0;
+  margin : 0;
+  background-color : #222;
+  width : 100%;
+  height : 100%;
+}
+
+.app{
+  width : 100%;
+  height : 100%;
+}
+
+/* stage -- start */
+.stage{
+  width : 100%;
+  height : 100%;
+  position : relative;  
+}
+/* stage -- end */
+
+/* img-sec -- start */
+.img-sec{
+  position : relative;
+  width : 100%;
+  height : 100%;
+  overflow : hidden;
+  background-color : #ddd;
+  perspective: 1800px;
+
+  @at-root{//使下列样式与.img-sec平级，提高性能
+
+    .img-figure{
+      width : 320px;
+      height : 360px;
+      margin : 0;
+      padding : 40px;
+      box-sizing : border-box;
+      background-color : #fff;
+      position : absolute;
+
+      cursor: pointer;
+      transform-origin: 0 50% 0;//设置旋转点为左上角
+      transform-style: preserve-3d;//3D旋转
+      //transition 属性是一个简写属性，用于设置四个过渡属性
+      //transition-property 规定设置过渡效果的 CSS 属性的名称
+      //transition-duration 规定完成过渡效果需要多少秒或毫秒
+      //transition-timing-function  规定速度效果的速度曲线,ease-in-out 规定以慢速开始和结束的过渡效果
+      //transition-delay  定义过渡效果何时开始
+      transition: transform .6s ease-in-out, left .6s ease-in-out, top .6s ease-in-out;
+
+      &.is-inverse{
+        transform:  translate(320px) rotateY(180deg);//沿Y轴旋转180度，在沿X轴右移320px
+      }
+    }
+
+    figcaption{
+      text-align : center;
+
+      .img-title{
+        margin : 20px 0 0 0;
+        color : #a7a0a2;
+        font-size : 16px;
+      }
+
+      .img-back {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+        padding: 50px 40px;
+        overflow: auto;
+
+        color: #a7a0a2;
+        font-size: 22px;
+        line-height: 1.25;
+        text-align: left;
+
+        background-color: #fff;
+
+        box-sizing: border-box;
+        transform: rotateY(180deg) translateZ(1px);
+        backface-visibility: hidden;
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+/* img-sec -- end */
+
+/* controller-nav -- start */
+.controller-nav{
+  position : absolute;
+  left : 0;
+  bottom : 30px;
+  width : 100%;
+  z-index : 101;
+  text-align : center;
+}
+.controller-unit{
+  display : inline-block;
+  width : 30px;
+  height : 30px;
+  margin : 0 5px;
+  text-align : center;
+  vertical-align : middle;
+  cursor : pointer;
+  background-color : #aaa;
+  border-radius : 50%;
+  transform : scale(.5);
+  transition: transform .6s ease-in-out;
+
+  &.is-center{
+    transform : scale(1);
+    background-color : #888;
+
+    &::after{
+      font-family : 'iconFont';
+      content : '\e600';
+      line-height : 30px;
+      color : #fff;
+    }
+    &.is-inverse{
+      background-color : #555;
+      transform : rotateY(180deg);
+    }
+  }
+}
+/* controller-nav -- end */
